@@ -1,0 +1,5 @@
+keyboard
+pyinstaller
+requests
+BeautifulSoup4
+lxml
