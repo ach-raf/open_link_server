@@ -46,7 +46,7 @@ def server(host, port):
             archive('link', command)
     else:
         print("Server received command", command)
-        keyboard.press(command)
+        keyboard.press_and_release(command)
 
 
 def date_now():

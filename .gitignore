@@ -1,5 +1,11 @@
+.git/
 .idea/
-__pycahce__/
+.vscode/
+__pycache__/
 build/
+database/
 dist/
 venv/
+pressed_keys.py
+server.spec
+udp_client.py
