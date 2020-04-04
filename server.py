@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-import json
 import os
 import socket
 import threading
 import webbrowser
 from datetime import datetime
 
+from services.read_write import FileManipulation
 import keyboard
 
-from youtube_info import get_youtube_info
 from get_title_from_url import get_title_from_url
 
 """
@@ -22,6 +21,8 @@ HOST_NAME = socket.gethostname()
 HOST = socket.gethostbyname(HOST_NAME)
 # PORT = int(input('The port you want to use: '))
 PORT = 1007
+
+FILE_MANIPULATION = FileManipulation()
 
 
 def server(host, port):
@@ -54,31 +55,9 @@ def date_now():
     return datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
 
-def write_to_disk(source, info_to_write):
-    file_path = f'./database/{source}_archive.json'
-    type_database = f'{source}_archive'
-    with open(file_path, 'a+', encoding='utf8') as file_to_read:
-        if file_is_empty(file_path):
-            data = {type_database: [info_to_write]}
-        else:
-            file_to_read.seek(0)
-            data = json.load(file_to_read)  # array consist of each line of the json file
-            data[type_database].append(info_to_write)
-    with open(file_path, 'w', encoding='utf8') as file_to_write:
-        json.dump(data, file_to_write, indent=4)
-
-
 def archive(source, content):
-    if 'youtube' in source:
-        info_to_write = {'title': get_youtube_info(content), 'url': content, 'date': date_now()}
-        write_to_disk(source, info_to_write)
-    else:
-        info_to_write = {'title': get_title_from_url(content), 'url': content, 'date': date_now()}
-        write_to_disk(source, info_to_write)
-
-
-def file_is_empty(path):
-    return os.stat(path).st_size == 0
+    info_to_write = {'title': get_title_from_url(content), 'url': content, 'date': date_now()}
+    FILE_MANIPULATION.write_to_disk(f'database/{source}_archive', 'json', info_to_write)
 
 
 def main():

@@ -1,9 +1,10 @@
 import json
 import os
+import requests
 from datetime import date
 from datetime import datetime as dt
 from pickle import load as load_pickle_file
-
+import urllib.request
 """
 python library to facilitate the manipulation of writing to the disk.
 """
@@ -21,7 +22,7 @@ def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
     if isinstance(obj, (dt, date)):
         return obj.isoformat()
-    raise TypeError("Type %s not serializable" % type(obj))
+    raise TypeError(f'Type {type(obj)} not serializable')
 
 
 def read_json(file_to_read):
@@ -29,21 +30,12 @@ def read_json(file_to_read):
     return json.load(file_to_read)
 
 
-def write_json(path, file_to_write, root_array_key, content):
-    if not file_is_empty(path):
-        data = read_json(file_to_write)
-        if root_array_key in data:
-            print(root_array_key)
-            print(content)
-            print('append')
-            data[root_array_key].append(content)
-        else:
-            if isinstance(content, list):
-                data[root_array_key] = content
-            else:
-                data[root_array_key] = [content]
+def write_json(path, file_to_write, content):
+    if file_is_empty(path):
+        data = [content]
     else:
-        data = content
+        data = read_json(file_to_write)
+        data.append(content)
     with open(path, 'w', encoding='utf8') as file_to_write:
         json.dump(data, file_to_write, indent=4, default=json_serial)
 
@@ -53,6 +45,7 @@ def read_txt(file_to_read, separator):
 
 
 def write_txt(file_to_write, content):
+    print('txt')
     file_to_write.write(str(content))
 
 
@@ -77,7 +70,6 @@ class FileManipulation:
             os.makedirs(base_path)
 
     def write_to_disk(self, file_name, file_type, content, root_array_key='default_root'):
-        path = self.base_path + '/' + file_name + '.' + file_type
         """
         a function that write a file to the disk
         :param file_name: the name of your file
@@ -91,15 +83,16 @@ class FileManipulation:
                     output: {"personal_info": [{"name": "ash","age": 26,"car": null}]}
         :return:
         """
+        path = f'{self.base_path}/{file_name}.{file_type}'
         with open(path, 'a+', encoding='utf8') as file_to_write:
             if 'json' in file_type:
-                write_json(path, file_to_write, root_array_key, content)
-            elif 'txt' in file_type:
+                write_json(path, file_to_write, content)
+            else:
                 write_txt(file_to_write, content)
-        print('You can find the file in {}'.format(path))
+        print(f'You can find the file in {path}')
 
     def read_file(self, file_name, file_type, separator='\n'):
-        path = self.base_path + '/' + file_name + '.' + file_type
+        path = f'{self.base_path}/{file_name}.{file_type}'
         """
         a function to read a file and return it's content
         :param file_name: the name of your file
@@ -119,3 +112,12 @@ class FileManipulation:
         else:
             print('No data to read')
             return False
+
+    def download_image(self, image_name, image_url):
+        image_data = requests.get(image_url).content
+        image_extension = image_url.split('.')[-1]
+        with open(f'{self.base_path}/{image_name}.{image_extension}', 'wb') as handler:
+            handler.write(image_data)
+
+    def download_pdf(self, pdf_name, pdf_url):
+        urllib.request.urlretrieve(pdf_url, f'{self.base_path}/{pdf_name}.pdf')
