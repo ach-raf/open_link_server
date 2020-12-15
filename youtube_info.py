@@ -1,6 +1,7 @@
 import requests
 from pytube import YouTube
 
+
 def get_youtube_info(link):
     """this function extract youtube title from a link"""
 
@@ -21,4 +22,4 @@ def get_youtube_info(link):
     try:
         return YouTube(link).title
     except Exception:
-        return link + " DELETED"
+        return "Video DELETED"

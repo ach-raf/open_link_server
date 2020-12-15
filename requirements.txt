@@ -3,3 +3,5 @@ pyinstaller
 requests
 BeautifulSoup4
 lxml
+pywin32
+winshell
