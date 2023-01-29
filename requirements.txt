@@ -1,3 +1,4 @@
+pyKey
 keyboard
 pyinstaller
 requests
@@ -5,3 +6,6 @@ BeautifulSoup4
 lxml
 pywin32
 winshell
+pynput
+pytube
+wxPython

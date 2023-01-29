@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['server.py'],
+a = Analysis(['server.pyw'],
              pathex=['C:\\Users\\USER\\PycharmProjects\\open_link_server'],
              binaries=[],
              datas=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=True )
+          console=False )

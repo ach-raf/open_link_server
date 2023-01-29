@@ -1,11 +1,20 @@
-.git/
+__pycache__/
 .idea/
 .vscode/
-__pycache__/
+.git/
 build/
 database/
+database - Copy/
 dist/
+servises/
 venv/
+.gitignore
+archive.json
+cmd_server.py
+icon.png
 pressed_keys.py
+server.pyw
 server.spec
+test.py
 udp_client.py
+youtube_info.py
