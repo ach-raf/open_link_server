@@ -37,6 +37,7 @@ HOST = get_ip_address()
 # port number
 PORT = 1007
 UDP_PORT = 2525
+counter_16_9 = 0
 # ==============================================================================
 
 
@@ -130,8 +131,28 @@ def command_handler(command):
         case 'skip_anime_intro':
             skip_anime_intro()
         case '16_9':
-            for i in range(15):
-                press_and_release('NUM6')
+            global counter_16_9
+
+            match counter_16_9:
+                case 0:
+                    print("stretching wide")
+                    for i in range(14):
+                        # wide stretch in mpc
+                        press_and_release('NUM6')
+                    """counter_16_9 = 1
+                case 1:
+                    print("movie look, top and bottom bars")
+                    for i in range(15):
+                        # movie look; add top and bottom bars,
+                        press_and_release('NUM2')
+                    counter_16_9 = 2
+                case 2:
+                    print("return to normal")
+                    # return to normal
+                    for i in range(15):
+                        press_and_release('NUM4')
+                        press_and_release('NUM8')
+                    counter_16_9 = 0"""
         case _:
             if command != "":
                 keyboard.press_and_release(command)
