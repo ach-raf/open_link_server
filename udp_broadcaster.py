@@ -95,4 +95,5 @@ def broadcast_ip_udp(_host, _port):
 
 
 if __name__ == '__main__':
-    broadcast_ip_udp()
+    #broadcast_ip_udp()
+    print("This is a module, not a script.")
