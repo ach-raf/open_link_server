@@ -6,6 +6,7 @@ This Python program acts as a backend for an Android app, serving as a remote co
 
 ## Features
 
+- Program optimised to work with MPV media player.
 - Receives commands and links over a TCP connection.
 - Handles various commands to control media playback, volume, screen actions, etc.
 - Opens links received in a new tab in the default browser.
@@ -29,7 +30,7 @@ Here are some screenshots showcasing the program in action:
 1. **Clone the repository to your local machine:**
 
    ```bash
-   git clone https://github.com/your-username/your-repository.git
+   git clone git@github.com:ach-raf/open_link_server.git
    ```
 
 2. **Navigate to the project directory:**
@@ -60,7 +61,7 @@ Here are some screenshots showcasing the program in action:
 1. **Run the program:**
 
    ```bash
-   python cli_remote_controller.py
+   python server_cli.py
    ```
 
 2. **Ensure that the host machine and the Android device are connected to the same local network.**
@@ -96,6 +97,17 @@ Here are some screenshots showcasing the program in action:
   - `turn_off_screen`: Turn off the screen.
   - `skip_anime_intro`: Skip anime intro.
   - `16_9`: Stretch video to 16:9 aspect ratio.
+
+## Additional Notes
+
+If you prefer running the script in a Windows environment using a batch file, you can create a batch file (e.g., `run_server.bat`) with the following content:
+
+```batch
+@echo off
+cls
+C:\path\to\your\venv\Scripts\python.exe C:\path\to\your\server_cli.py
+pause
+```
 
 ## Contributing
 
