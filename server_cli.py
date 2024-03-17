@@ -63,20 +63,20 @@ def commands_print(command):
     commands_dict = {
         "volume down": "volume down",
         "volume up": "volume up",
-        "alt+m": "mute volume",
-        "left arrow": "-10 seconds",
-        "right arrow": "+10 seconds",
-        "alt+left arrow": "-20 seconds",
-        "alt+right arrow": "+20 seconds",
-        "space": "Play/Pause",
+        "mute": "mute volume",
+        "minus_10": "-10 seconds",
+        "plus_10": "+10 seconds",
+        "minus_20": "-20 seconds",
+        "plus_20": "+20 seconds",
+        "play_pause": "Play/Pause",
         "s": "subtitle_button (s)",
         "d": "subtitle_search (d)",
         "a": "audio_button (a)",
-        ";": "stop_button",
-        "page down": "next_chapter_button",
-        "page up": "previous_chapter_button",
-        "ctrl+page down": "skip_forward_button",
-        "ctrl+page up": "skip_back_button",
+        "stop": "stop_button",
+        "next_chapter": "next_chapter_button",
+        "previous_chapter": "previous_chapter_button",
+        "skip_forward": "skip_forward_button",
+        "skip_back": "skip_back_button",
         "turn_off_screen": "turn_off_screen",
         "skip_anime_intro": "skip_anime_intro",
         "16_9": "stretch_to_16_9",
@@ -85,6 +85,9 @@ def commands_print(command):
         "esc": "ESC",
         "history": "h",
         "enter": "enter",
+        "shaders": "shaders",
+        "overlay": "overlay",
+        "subtitle_style": "subtitle_style",
     }
     try:
         print(f"Server received command {commands_dict[command]}")
@@ -99,28 +102,56 @@ def skip_anime_intro():
 def command_handler(command):
     commands_print(command)
     match command:
+        case "mute":
+            keyboard.press_and_release("alt+m")
+        case "minus_10":
+            keyboard.press_and_release("shift+p")
+        case "plus_10":
+            keyboard.press_and_release("p")
+        case "minus_20":
+            keyboard.press_and_release("ctrl+p")
+        case "plus_20":
+            keyboard.press_and_release("ctrl+shift+p")
+        case "play_pause":
+            keyboard.press_and_release("space")
+        case "s":
+            keyboard.press_and_release("s")
+        case "d":
+            keyboard.press_and_release("d")
+        case "a":
+            keyboard.press_and_release("a")
+        case "stop":
+            keyboard.press_and_release(";")
+        case "next_chapter":
+            keyboard.press_and_release("i")
+        case "previous_chapter":
+            keyboard.press_and_release("u")
+        case "skip_forward":
+            keyboard.press_and_release("ctrl+shift+i")
+        case "skip_back":
+            keyboard.press_and_release("ctrl+u")
+        case "turn_off_screen":
+            turn_off_screen()
         case "skip_anime_intro":
             skip_anime_intro()
         case "16_9":
             keyboard.press_and_release("shift+m")
-        case "left arrow":
-            keyboard.press_and_release("shift+p")
-        case "right arrow":
-            keyboard.press_and_release("p")
-        case "alt+left arrow":
-            keyboard.press_and_release("ctrl+p")
-        case "alt+right arrow":
-            keyboard.press_and_release("ctrl+shift+p")
-        case "page down":
-            keyboard.press_and_release("i")
-        case "page up":
-            keyboard.press_and_release("u")
-        case "ctrl+page down":
-            keyboard.press_and_release("ctrl+shift+i")
-        case "ctrl+page up":
-            keyboard.press_and_release("ctrl+u")
+        case "f1":
+            keyboard.press_and_release("z")
+        case "f2":
+            keyboard.press_and_release("shift+z")
+        case "esc":
+            keyboard.press_and_release("esc")
         case "history":
             keyboard.press_and_release("h")
+        case "enter":
+            keyboard.press_and_release("enter")
+        case "shaders":
+            keyboard.press_and_release("ctrl+shift+x")
+        case "overlay":
+            keyboard.press_and_release("o")
+        case "subtitle_style":
+            keyboard.press_and_release("ctrl+shift+u")
         case _:
             keyboard.press_and_release(command)
 

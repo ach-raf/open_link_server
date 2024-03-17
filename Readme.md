@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This Python program acts as a backend for an Android app, serving as a remote controller using a local network connection. It listens for commands and links sent over the network and executes corresponding actions on the host machine.
+This Python program acts as a backend for [OpenLink Client](https://github.com/ach-raf/open_link_client) an Android app, serving as a remote controller using a local network connection. It listens for commands and links sent over the network and executes corresponding actions on the host machine.
 
 ## Features
 
